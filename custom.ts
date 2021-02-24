@@ -7,14 +7,14 @@
 /**
  * Prototype Sound blocks
  */
-//% weight=105 color=#F38500 icon=""
-namespace sound {
+//% weight=105 color=#F38500 icon=""  block="Sound (V2 Only)"
+namespace sound{
     /**
      * Squeak - slide between two frequencies over a variable period of time. 
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
     //% blockId=music_squeak
-    //% block="squeak from $start_tone to $end_tone taking $duration milliseconds "
+    //% block="squeak from $start_tone hz to $end_tone hz taking $duration milliseconds "
     //% start_tone.min=10 start_tone.max=9000 start_tone.defl=600
     //% end_tone.min=10 end_tone.max=9000 end_tone.defl=1000
     //% duration.min=100 duration.max=1000 duration.defl=300
@@ -35,10 +35,10 @@ namespace sound {
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
     //% blockId=music_warble
-    //% block="warble between $freq_1 and $freq_2 with gap $duration milliseconds, repeat $numRepeats"
+    //% block="warble between $freq_1 hz and $freq_2 hz with gap $duration milliseconds, repeat $numRepeats"
     //% freq_1.min=10 freq_1.max=9000 freq_1.defl=2000
     //% freq_2.min=10 freq_2.max=9000 freq_2.defl=2500
-    //% duration.min=100 duration.max=1000 duration.defl=50
+    //% duration.min=100 duration.max=9000 duration.defl=50
     //% numRepeats.min=1 numRepeats.max=100 numRepeats.defl=5
     export function warbleSound(freq_1: number, freq_2: number, duration: number, numRepeats: number) {
         //Pad to 4 chars
@@ -58,10 +58,10 @@ namespace sound {
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
     //% blockId=music_chirp
-    //% block="chirp from $freq_1 to $freq_2 taking $duration milliseconds"
+    //% block="chirp from $freq_1 hz to $freq_2 hz taking $duration milliseconds"
     //% freq_1.min=10 freq_1.max=9000 freq_1.defl=600
     //% freq_2.min=10 freq_2.max=9000 freq_2.defl=1000
-    //% duration.min=100 duration.max=1000 duration.defl=300
+    //% duration.min=100 duration.max=9000 duration.defl=300
     export function chirpSound(freq_1: number, freq_2: number, duration: number) {
         //Pad to 4 chars
         let f1 = freq_1.toString();
@@ -73,6 +73,28 @@ namespace sound {
         let direction = "05";
         if(freq_1 > freq_2){direction = "06"}
         new SoundExpression("31023" + f1 + dur + direction + "440"+ f2 + "08881023" + "0128" + "00000000240000000000000000000000000000").play();
+    }
+
+    /**
+     * Croak - low pitched croak sound
+     * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
+     */
+    //% blockId=music_croak
+    //% block="croak from $freq_1 hz to $freq_2 hz taking $duration milliseconds"
+    //% freq_1.min=10 freq_1.max=1000 freq_1.defl=5
+    //% freq_2.min=10 freq_2.max=1000 freq_2.defl=30
+    //% duration.min=100 duration.max=9000 duration.defl=1500
+    export function croakSound(freq_1: number, freq_2: number, duration: number) {
+        //Pad to 4 chars
+        let f1 = freq_1.toString();
+        let f2 = freq_2.toString();
+        let dur = duration.toString();
+        while(f1.length < 4){f1 = "0" + f1;}
+        while(f2.length < 4){f2 = "0" + f2;}
+        while(dur.length < 4){dur = "0" + dur;}
+        let direction = "05";
+        if(freq_1 > freq_2){direction = "06"}
+        new SoundExpression("31023" + f1 + dur + "02" + "440"+ f2 + "08881023" + "0128" + "00000000240000000000000000000000000000").play();
     }
 
 
