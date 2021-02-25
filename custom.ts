@@ -15,8 +15,8 @@ namespace sound{
      */
     //% blockId=music_squeak
     //% block="squeak from $start_tone hz to $end_tone hz taking $duration milliseconds "
-    //% start_tone.min=10 start_tone.max=9000 start_tone.defl=600
-    //% end_tone.min=10 end_tone.max=9000 end_tone.defl=1000
+    //% start_tone.min=1000 start_tone.max=9000 start_tone.defl=1000
+    //% end_tone.min=1000 end_tone.max=9000 end_tone.defl=1500
     //% duration.min=100 duration.max=1000 duration.defl=300
     export function squeakSound(start_tone: number, end_tone: number, duration: number) {
         //Pad to 4 chars
@@ -81,8 +81,8 @@ namespace sound{
      */
     //% blockId=music_croak
     //% block="croak from $freq_1 hz to $freq_2 hz taking $duration milliseconds"
-    //% freq_1.min=10 freq_1.max=1000 freq_1.defl=5
-    //% freq_2.min=10 freq_2.max=1000 freq_2.defl=30
+    //% freq_1.min=1 freq_1.max=1000 freq_1.defl=5
+    //% freq_2.min=1 freq_2.max=1000 freq_2.defl=30
     //% duration.min=100 duration.max=9000 duration.defl=1500
     export function croakSound(freq_1: number, freq_2: number, duration: number) {
         //Pad to 4 chars
@@ -104,16 +104,18 @@ namespace sound{
      */
     //% blockId=music_click
     //% block="click at $freq_1 hz"
-    //% freq_1.min=1 freq_1.max=50 freq_1.defl=5
+    //% freq_1.min=1 freq_1.max=50 freq_1.defl=10
     export function clickSound(freq_1: number) {
         //Pad to 4 chars
         let f1 = freq_1.toString();
         let f2 = (freq_1+(freq_1/2)).toString();
         while(f1.length < 4){f1 = "0" + f1;}
         while(f2.length < 4){f2 = "0" + f2;}
-        new SoundExpression("31023" + f1 + "0020" + "01" + "440"+ f2 + "08881023" + "0032" + "00000000240000000000000000000000000000").play();
+        new SoundExpression("3" + "1023" + f1 + "0050" + "02" + "440"+ f2 + "08881023" + "0032" + "0000000024"+"0000000000000000000000000000").play();
     }
 
+
+    //for hiss - only take one param then repeat X times and goto frequency that is +-Var at random each time to make a hissing sound
 
 
 }
