@@ -104,14 +104,14 @@ namespace sound{
      */
     //% blockId=music_click
     //% block="click at $freq_1 hz"
-    //% freq_1.min=10 freq_1.max=1000 freq_1.defl=20
+    //% freq_1.min=1 freq_1.max=50 freq_1.defl=5
     export function clickSound(freq_1: number) {
         //Pad to 4 chars
         let f1 = freq_1.toString();
         let f2 = (freq_1+(freq_1/2)).toString();
         while(f1.length < 4){f1 = "0" + f1;}
         while(f2.length < 4){f2 = "0" + f2;}
-        new SoundExpression("31023" + f1 + "0020" + "01" + "440"+ f2 + "08881023" + "0064" + "00000000240000000000000000000000000000").play();
+        new SoundExpression("31023" + f1 + "0020" + "01" + "440"+ f2 + "08881023" + "0032" + "00000000240000000000000000000000000000").play();
     }
 
 
