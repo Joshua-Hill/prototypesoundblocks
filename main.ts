@@ -53,15 +53,3 @@ function clicks () {
         basic.pause(200)
     }
 }
-basic.pause(2000)
-Cricket()
-basic.pause(2000)
-clicks()
-basic.pause(2000)
-Squeakmouse()
-basic.pause(2000)
-Bird()
-basic.pause(2000)
-otherBird()
-basic.pause(2000)
-Frog()

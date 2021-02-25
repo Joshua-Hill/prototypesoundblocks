@@ -15,9 +15,9 @@ namespace sound{
      */
     //% blockId=music_squeak
     //% block="squeak from $start_tone hz to $end_tone hz taking $duration milliseconds "
-    //% start_tone.min=1000 start_tone.max=9000 start_tone.defl=1000
-    //% end_tone.min=1000 end_tone.max=9000 end_tone.defl=1500
-    //% duration.min=100 duration.max=1000 duration.defl=300
+    //% start_tone.min=100 start_tone.max=9000 start_tone.defl=1000
+    //% end_tone.min=100 end_tone.max=9000 end_tone.defl=1500
+    //% duration.min=100 duration.max=9000 duration.defl=300
     export function squeakSound(start_tone: number, end_tone: number, duration: number) {
         //Pad to 4 chars
         let start = start_tone.toString();
