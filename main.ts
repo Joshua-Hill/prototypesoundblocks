@@ -1,3 +1,4 @@
+let sound2: sound.Sound = null
 function Squeakmouse () {
     sound.squeakSound(262, 659, 398)
     sound.squeakSound(988, 220, 586)
@@ -30,6 +31,15 @@ function Frog () {
         basic.pause(500)
         sound.croakSound(5, randint(10, 50), randint(100, 2500))
     }
+}
+function Generic_Builder () {
+    sound2 = sound.createSoundVar()
+    sound.playSound(sound2)
+    sound.playSound(sound.createSound(2000, 200))
+    sound.playSound(sound.createSound(2000, 200, 2500))
+    sound.playSound(sound.createSound(2000, 200, 2500, 2))
+    sound.playSound(sound.createSound(2000, 200, 2500, 2, 3))
+    sound.playSound(sound.createSound(2000, 200, 2500, 2, 3, 0))
 }
 function Bird () {
     sound.chirpSound(2000, 4000, 100)

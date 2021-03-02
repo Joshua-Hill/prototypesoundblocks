@@ -15,9 +15,9 @@ namespace sound{
      */
     //% blockId=music_squeak
     //% block="squeak from $start_tone hz to $end_tone hz taking $duration milliseconds "
-    //% start_tone.min=100 start_tone.max=9000 start_tone.defl=1000
-    //% end_tone.min=100 end_tone.max=9000 end_tone.defl=1500
-    //% duration.min=100 duration.max=9000 duration.defl=300
+    //% start_tone.min=1000 start_tone.max=9000 start_tone.defl=1000
+    //% end_tone.min=1000 end_tone.max=9000 end_tone.defl=1500
+    //% duration.min=100 duration.max=1000 duration.defl=300
     export function squeakSound(start_tone: number, end_tone: number, duration: number) {
         //Pad to 4 chars
         let start = start_tone.toString();
@@ -116,6 +116,102 @@ namespace sound{
 
 
     //for hiss - only take one param then repeat X times and goto frequency that is +-Var at random each time to make a hissing sound
+
+
+    export class Sound{
+
+        startFreq : string;
+        endFreq : string;
+        duration : string;
+        curveType : string;
+        waveType : string;
+        effect : string;
+
+        constructor(){
+            this.startFreq = "2000";
+            this.endFreq = "2500";
+            this.duration = "0500";
+            this.curveType = "02";
+            this.waveType = "3";
+            this.effect = "00";
+        }
+
+        playSound(){
+            new SoundExpression(this.waveType + "1023" + this.startFreq + this.duration + this.curveType + "440"+ this.endFreq + "08881023" + "0032" + this.effect + "00000024"+"0000000000000000000000000000").play();
+        }
+    }
+
+
+    /**
+     * create Sound Generic Block
+     * @param freq1 Start Frequency in Hertz (Hz), eg: 2000
+     * @param duration Duration of sound (ms), eg: 500
+     * @param freq2 End Frequency in Hertz (Hz), eg: 2000
+     * @param curveType Type of curve between frequencies, eg: 2
+     * @param waveType Type of wave to play the sound on, eg: 3
+     * @param effect Effect to put on the sound, eg: 3
+     */
+    //% blockId=music_soundGeneric
+    //% expandableArgumentMode="enabled"
+    //% inlineInputMode=inline
+    //% block="Create sound, start  $freq1 (Hz), duration $duration (ms)||, end  $freq2 (Hz) |, curve type $curveType|, wave type $waveType|, effect $effect"
+    //% freq1.min=6 freq1.max=9000 freq1.defl=2000
+    //% duration.min=10 duration.max=9000 duration.defl=200
+    //% freq2.min=6 freq2.max=9000 freq2.defl=2500
+    //% curveType.min=0 curveType.max=6 curveType.defl=2
+    //% waveType.min=0 waveType.max=4 waveType.defl=3
+    //% effect.min=0 effect.max=3 effect.defl=0
+    export function createSound(freq1 : number = 2000, duration : number = 200, freq2 : number = 9999, curveType : number = 2, waveType : number = 3, effect : number = 0) : Sound{
+        let sound = new Sound();
+        let f1 = freq1.toString();
+        let f2 = freq2.toString();
+        let dur = duration.toString();
+        let ct = null;
+        if (freq2 == 9999){
+            ct = "00";
+        }
+        else{
+            ct = curveType.toString();
+        }
+        let wt = waveType.toString();
+        let fx = effect.toString();
+        while(f1.length < 4){f1 = "0" + f1;}
+        while(f2.length < 4){f2 = "0" + f2;}
+        while(dur.length < 4){dur = "0" + dur;}
+        while(ct.length < 2){ct = "0" + ct;}
+        while(wt.length < 0){wt = "0" + wt;}
+        while(fx.length < 2){fx = "0" + fx;}
+
+        sound.startFreq = f1;
+        sound.endFreq = f2;
+        sound.duration = dur;
+        sound.curveType = ct;
+        sound.waveType = wt;
+        sound.effect = fx;
+
+        return sound;
+    }
+
+
+    /**
+     * play Sound Block
+     * @param sound instance of Sound to play
+     */
+    //% blockId=music_playSound
+    //% block="play sound %sound"
+    export function playSound(sound : Sound){
+        sound.playSound();
+    }
+
+    /**
+     * Create a Sound widget and automtically set it to a variable
+     */
+    //% blockId=music_soundVar
+    //% block="create_sound"
+    //% blockSetVariable=sound
+    export function createSoundVar(): Sound {
+        return new Sound();
+    }
 
 
 }
