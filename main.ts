@@ -32,15 +32,6 @@ function Frog () {
         sound.croakSound(5, randint(10, 50), randint(100, 2500))
     }
 }
-function Generic_Builder () {
-    sound2 = sound.createSoundVar()
-    sound.playSound(sound2)
-    sound.playSound(sound.createSound(2000, 200))
-    sound.playSound(sound.createSound(2000, 200, 2500))
-    sound.playSound(sound.createSound(2000, 200, 2500, 2))
-    sound.playSound(sound.createSound(2000, 200, 2500, 2, 3))
-    sound.playSound(sound.createSound(2000, 200, 2500, 2, 3, 0))
-}
 function Bird () {
     sound.chirpSound(2000, 4000, 100)
     sound.chirpSound(2000, 5000, 150)
@@ -52,6 +43,10 @@ function Bird () {
     sound.chirpSound(2000, 6000, 300)
     sound.chirpSound(6000, 4000, 260)
     sound.chirpSound(6000, 4000, 209)
+}
+function Generic_Builder () {
+    sound2 = sound.createSoundVar()
+    sound.playSound(sound2)
 }
 function clicks () {
     for (let index = 0; index < 20; index++) {

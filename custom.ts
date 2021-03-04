@@ -3,6 +3,22 @@
  * Read more at https://makecode.microbit.org/blocks/custom
  */
 
+/**
+  * Wave Types
+  */
+enum WaveType
+{
+    //% block="Sine"
+    SineWave = "0",
+    //% block="Sawtooth"
+    SawtoothWave = "1",
+    //% block="Triangle"
+    TriangleWave = "2",
+    //% block="Square"
+    SquareWave = "3",
+    //% block="Noise"
+    NoiseWave = "4"
+}
 
 /**
  * Prototype Sound blocks
@@ -154,14 +170,14 @@ namespace sound{
     //% blockId=music_soundGeneric
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
-    //% block="Create sound, start  $freq1 (Hz), duration $duration (ms)||, end  $freq2 (Hz) |, curve type $curveType|, wave type $waveType|, effect $effect"
-    //% freq1.min=6 freq1.max=9000 freq1.defl=2000
+    //% block="Create sound, start  $freq1 (Hz), end  $freq2 (Hz), duration $duration (ms)||, curve type $curveType|, wave type $waveType|, effect $effect"
+    //% freq1.min=6 freq1.max=9000 freq1.defl=1000
     //% duration.min=10 duration.max=9000 duration.defl=200
-    //% freq2.min=6 freq2.max=9000 freq2.defl=2500
+    //% freq2.min=6 freq2.max=9000 freq2.defl=1200
     //% curveType.min=0 curveType.max=6 curveType.defl=2
     //% waveType.min=0 waveType.max=4 waveType.defl=3
     //% effect.min=0 effect.max=3 effect.defl=0
-    export function createSound(freq1 : number = 2000, duration : number = 200, freq2 : number = 9999, curveType : number = 2, waveType : number = 3, effect : number = 0) : Sound{
+    export function createSound(freq1 : number = 2000, freq2 : number = 9999, duration : number = 200, curveType : number = 2, waveType : WaveType = WaveType.SineWave, effect : number = 0) : Sound{
         let sound = new Sound();
         let f1 = freq1.toString();
         let f2 = freq2.toString();
@@ -173,20 +189,18 @@ namespace sound{
         else{
             ct = curveType.toString();
         }
-        let wt = waveType.toString();
         let fx = effect.toString();
         while(f1.length < 4){f1 = "0" + f1;}
         while(f2.length < 4){f2 = "0" + f2;}
         while(dur.length < 4){dur = "0" + dur;}
         while(ct.length < 2){ct = "0" + ct;}
-        while(wt.length < 0){wt = "0" + wt;}
         while(fx.length < 2){fx = "0" + fx;}
 
         sound.startFreq = f1;
         sound.endFreq = f2;
         sound.duration = dur;
         sound.curveType = ct;
-        sound.waveType = wt;
+        sound.waveType = waveType;
         sound.effect = fx;
 
         return sound;
