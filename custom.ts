@@ -21,6 +21,38 @@ enum WaveType
 }
 
 /**
+  * Curve Types
+  */
+enum CurveType
+{
+    //% block="NoCurve"
+    None = "0",
+    //% block="Linear"
+    Linear = "1",
+    //% block="Curve"
+    Curve = "2",
+    //% block="Exponential Rising"
+    ExpRising = "5",
+    //% block="Exponential Falling"
+    ExpFalling = "6"
+}
+
+/**
+  * Effect Types
+  */
+enum EffectType
+{
+    //% block="NoEffect"
+    None = "0",
+    //% block="Frequency Vibrato"
+    FreqVibrato = "1",
+    //% block="Volume Vibrato"
+    VolumeVibrato = "2",
+    //% block="Warble Interpolation"
+    WarbleInterpolation = "3"
+}
+
+/**
  * Prototype Sound blocks
  */
 //% weight=105 color=#F38500 icon=""  block="Sound (V2 Only)"
@@ -44,7 +76,6 @@ namespace sound{
         while(dur.length < 4){dur = "0" + dur;}
         new SoundExpression("31023" + start + dur + "02440"+ end + "08881023012800000000240000000000000000000000000000").play();
     }
-
 
     /**
      * Warble - oscillate between two frequencies some number of times during a variable period of time.
@@ -112,8 +143,7 @@ namespace sound{
         if(freq_1 > freq_2){direction = "06"}
         new SoundExpression("31023" + f1 + dur + "02" + "440"+ f2 + "08881023" + "0128" + "00000000240000000000000000000000000000").play();
     }
-
-
+    
     /**
      * Click - short click sound
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
@@ -130,9 +160,7 @@ namespace sound{
         new SoundExpression("3" + "1023" + f1 + "0050" + "02" + "440"+ f2 + "08881023" + "0032" + "0000000024"+"0000000000000000000000000000").play();
     }
 
-
     //for hiss - only take one param then repeat X times and goto frequency that is +-Var at random each time to make a hissing sound
-
 
     export class Sound{
 
@@ -142,6 +170,8 @@ namespace sound{
         curveType : string;
         waveType : string;
         effect : string;
+        fxParam : string;
+        fxSteps : string;
 
         constructor(){
             this.startFreq = "2000";
@@ -150,13 +180,14 @@ namespace sound{
             this.curveType = "02";
             this.waveType = "3";
             this.effect = "00";
+            this.fxParam  = "1500";
+            this.fxSteps = "1500";
         }
 
         playSound(){
-            new SoundExpression(this.waveType + "1023" + this.startFreq + this.duration + this.curveType + "440"+ this.endFreq + "08881023" + "0032" + this.effect + "00000024"+"0000000000000000000000000000").play();
+            new SoundExpression(this.waveType + "1023" + this.startFreq + this.duration + this.curveType + "440"+ this.endFreq + "08881023" + "0032" + this.effect + "00000024"+"00000000000000000000" + this.fxParam + this.fxSteps).play();
         }
     }
-
 
     /**
      * create Sound Generic Block
@@ -177,35 +208,24 @@ namespace sound{
     //% curveType.min=0 curveType.max=6 curveType.defl=2
     //% waveType.min=0 waveType.max=4 waveType.defl=3
     //% effect.min=0 effect.max=3 effect.defl=0
-    export function createSound(freq1 : number = 2000, freq2 : number = 9999, duration : number = 200, curveType : number = 2, waveType : WaveType = WaveType.SineWave, effect : number = 0) : Sound{
+    export function createSound(freq1 : number = 2000, freq2 : number = 2500, duration : number = 200, curveType : CurveType = CurveType.Curve, waveType : WaveType = WaveType.SquareWave, effect : EffectType = EffectType.None) : Sound{
         let sound = new Sound();
         let f1 = freq1.toString();
         let f2 = freq2.toString();
         let dur = duration.toString();
-        let ct = null;
-        if (freq2 == 9999){
-            ct = "00";
-        }
-        else{
-            ct = curveType.toString();
-        }
-        let fx = effect.toString();
         while(f1.length < 4){f1 = "0" + f1;}
         while(f2.length < 4){f2 = "0" + f2;}
         while(dur.length < 4){dur = "0" + dur;}
-        while(ct.length < 2){ct = "0" + ct;}
-        while(fx.length < 2){fx = "0" + fx;}
 
         sound.startFreq = f1;
         sound.endFreq = f2;
         sound.duration = dur;
-        sound.curveType = ct;
+        sound.curveType = "0" + curveType;
         sound.waveType = waveType;
-        sound.effect = fx;
+        sound.effect = "0" + effect;
 
         return sound;
     }
-
 
     /**
      * play Sound Block
@@ -226,6 +246,6 @@ namespace sound{
     export function createSoundVar(): Sound {
         return new Sound();
     }
-
-
 }
+
+
