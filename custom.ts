@@ -8,6 +8,7 @@
   */
 enum WaveType
 {
+    // TODO enums can be strings?
     //% block="Square"
     SquareWave = "3",
     //% block="Sine"
@@ -189,6 +190,8 @@ namespace sound{
         }
     }
 
+    // TODO defaults dont work?
+
     /**
      * create Sound Generic Block
      * @param freq1 Start Frequency in Hertz (Hz), eg: 2000
@@ -257,6 +260,8 @@ namespace sound{
     export function setWave(sound : Sound, waveType : WaveType){
         sound.waveType = waveType;
     }
+
+    //TODO known issue this isnt working (WIP)
 
     /**
      * set curve type

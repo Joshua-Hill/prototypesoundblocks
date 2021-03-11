@@ -73,10 +73,6 @@ function Bird2 () {
     sound.playSound(sound.createSound(6000, 4000, 260))
     sound.playSound(sound.createSound(6000, 4000, 206))
 }
-input.onButtonPressed(Button.B, function () {
-    cricket = sound.createSound(1000, 1200, 200)
-    sound.playSound(cricket)
-})
 function clicks () {
     for (let index = 0; index < 10; index++) {
         sound.clickSound(randint(1, 50))
@@ -86,6 +82,12 @@ function clicks () {
         sound.clickSound(10)
         basic.pause(200)
     }
+}
+function Cricket3 () {
+    cricket = sound.createSound(262, 440, 200)
+    sound.setCurve(cricket, CurveType.None)
+    sound.setWave(cricket, WaveType.SquareWave)
+    sound.playSound(cricket)
 }
 function Cricket2 () {
     for (let index = 0; index < 30; index++) {
