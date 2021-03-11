@@ -98,7 +98,6 @@ namespace sound{
         while(dur.length < 4){dur = "0" + dur;}
         for(let i = 0 ; i < numRepeats ; i++)
             new SoundExpression("31023" + f1 + dur + "02440"+ f2 + "08881023012800000000240000000000000000000000000000" + "," + "31023" + f2 + dur + "02440"+ f1 + "08881023012800000000240000000000000000000000000000").play();
-
     }
 
     /**
@@ -261,7 +260,7 @@ namespace sound{
         sound.waveType = waveType;
     }
 
-    //TODO known issue this isnt working (WIP)
+    //TODO known issue curve type isnt working (WIP)
 
     /**
      * set curve type
