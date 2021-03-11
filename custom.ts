@@ -8,7 +8,7 @@
   */
 enum WaveType
 {
-    // TODO enums can be strings?
+    // TODO enums can be strings? At top to make preset?
     //% block="Square"
     SquareWave = "3",
     //% block="Sine"
