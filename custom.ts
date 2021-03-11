@@ -8,14 +8,14 @@
   */
 enum WaveType
 {
+    //% block="Square"
+    SquareWave = "3",
     //% block="Sine"
     SineWave = "0",
     //% block="Sawtooth"
     SawtoothWave = "1",
     //% block="Triangle"
     TriangleWave = "2",
-    //% block="Square"
-    SquareWave = "3",
     //% block="Noise"
     NoiseWave = "4"
 }
@@ -25,12 +25,12 @@ enum WaveType
   */
 enum CurveType
 {
-    //% block="NoCurve"
+    //% block="Curve"
+    Curve = "2",
+    //% block="No Curve"
     None = "0",
     //% block="Linear"
     Linear = "1",
-    //% block="Curve"
-    Curve = "2",
     //% block="Exponential Rising"
     ExpRising = "5",
     //% block="Exponential Falling"
@@ -245,6 +245,28 @@ namespace sound{
     //% blockSetVariable=sound
     export function createSoundVar(): Sound {
         return new Sound();
+    }
+
+    /**
+     * set wave type
+     * @param sound instance of Sound to change
+     * @param waveType wave type to change to
+     */
+    //% blockId=music_set_wave_type
+    //% block="set %sound wave type to %waveType"
+    export function setWave(sound : Sound, waveType : WaveType){
+        sound.waveType = waveType;
+    }
+
+    /**
+     * set curve type
+     * @param sound instance of Sound to change
+     * @param curveType curve type to change to
+     */
+    //% blockId=music_set_curve_type
+    //% block="set %sound curve type to %curveType"
+    export function setCurve(sound : Sound, curveType : CurveType){
+        sound.curveType = curveType;
     }
 }
 

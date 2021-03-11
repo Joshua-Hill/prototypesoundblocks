@@ -1,6 +1,8 @@
-let sound2: sound.Sound = null
-let sound3: sound.Sound = null
-let x = 0
+let cricket: sound.Sound = null
+function ProtoBlocks () {
+    sound.playSound(sound.createSound(262, 440, 200))
+    sound.playSound(sound.createSound(input.acceleration(Dimension.X), input.compassHeading(), 500, CurveType.ExpRising, WaveType.SquareWave))
+}
 function Squeakmouse () {
     sound.squeakSound(262, 659, 398)
     sound.squeakSound(988, 220, 586)
@@ -59,18 +61,21 @@ function Bird () {
     sound.chirpSound(6000, 4000, 260)
     sound.chirpSound(6000, 4000, 209)
 }
-function Generic_Builder () {
-    sound.playSound(sound.createSound(1000, 1200, 500, CurveType.ExpRising, WaveType.SquareWave, EffectType.None))
-    sound2 = sound.createSoundVar()
-    sound.playSound(sound2)
-    sound3 = sound.createSound(1000, 1200, 200)
-    sound.playSound(sound3)
+function Bird2 () {
+    sound.playSound(sound.createSound(2000, 4000, 100))
+    sound.playSound(sound.createSound(2000, 5000, 150))
+    sound.playSound(sound.createSound(2000, 6000, 200))
+    sound.playSound(sound.createSound(2000, 4000, 200))
+    sound.playSound(sound.createSound(2000, 5000, 300))
+    sound.playSound(sound.createSound(2000, 6000, 300))
+    basic.pause(200)
+    sound.playSound(sound.createSound(2000, 6000, 300))
+    sound.playSound(sound.createSound(6000, 4000, 260))
+    sound.playSound(sound.createSound(6000, 4000, 206))
 }
 input.onButtonPressed(Button.B, function () {
-    while (true) {
-        x = input.acceleration(Dimension.X)
-        sound.playSound(sound.createSound(input.acceleration(Dimension.X), x, 100, CurveType.ExpRising, WaveType.SquareWave))
-    }
+    cricket = sound.createSound(1000, 1200, 200)
+    sound.playSound(cricket)
 })
 function clicks () {
     for (let index = 0; index < 10; index++) {
@@ -80,5 +85,12 @@ function clicks () {
     for (let index = 0; index < 10; index++) {
         sound.clickSound(10)
         basic.pause(200)
+    }
+}
+function Cricket2 () {
+    for (let index = 0; index < 30; index++) {
+        sound.playSound(sound.createSound(10, 40, 200))
+        sound.playSound(sound.createSound(10, 40, 20))
+        sound.playSound(sound.createSound(10, 40, 20))
     }
 }
