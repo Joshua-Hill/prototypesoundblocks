@@ -8,17 +8,16 @@
   */
 enum WaveType
 {
-    // TODO enums can be strings? At top to make preset?
     //% block="Square"
-    SquareWave = "3",
+    SquareWave = 3,
     //% block="Sine"
-    SineWave = "0",
+    SineWave = 0,
     //% block="Sawtooth"
-    SawtoothWave = "1",
+    SawtoothWave = 1,
     //% block="Triangle"
-    TriangleWave = "2",
+    TriangleWave = 2,
     //% block="Noise"
-    NoiseWave = "4"
+    NoiseWave = 4
 }
 
 /**
@@ -27,15 +26,15 @@ enum WaveType
 enum CurveType
 {
     //% block="Curve"
-    Curve = "2",
+    Curve = 2,
     //% block="No Curve"
-    None = "0",
+    None = 0,
     //% block="Linear"
-    Linear = "1",
+    Linear = 1,
     //% block="Exponential Rising"
-    ExpRising = "5",
+    ExpRising = 5,
     //% block="Exponential Falling"
-    ExpFalling = "6"
+    ExpFalling = 6
 }
 
 /**
@@ -44,13 +43,13 @@ enum CurveType
 enum EffectType
 {
     //% block="NoEffect"
-    None = "0",
+    None = 0,
     //% block="Frequency Vibrato"
-    FreqVibrato = "1",
+    FreqVibrato = 1,
     //% block="Volume Vibrato"
-    VolumeVibrato = "2",
+    VolumeVibrato = 2,
     //% block="Warble Interpolation"
-    WarbleInterpolation = "3"
+    WarbleInterpolation = 3
 }
 
 /**
@@ -160,36 +159,52 @@ namespace sound{
         new SoundExpression("3" + "1023" + f1 + "0050" + "02" + "440"+ f2 + "08881023" + "0032" + "0000000024"+"0000000000000000000000000000").play();
     }
 
-    //for hiss - only take one param then repeat X times and goto frequency that is +-Var at random each time to make a hissing sound
-
+    //WIP for hiss - only take one param then repeat X times and goto frequency that is +-Var at random each time to make a hissing sound
+    
     export class Sound{
 
-        startFreq : string;
-        endFreq : string;
-        duration : string;
-        curveType : string;
-        waveType : string;
-        effect : string;
-        fxParam : string;
-        fxSteps : string;
+        startFreq : number;
+        endFreq : number;
+        duration : number;
+        curveType : number;
+        waveType : number;
+        effect : number;
+        fxParam : number;
+        fxSteps : number;
 
         constructor(){
-            this.startFreq = "2000";
-            this.endFreq = "2500";
-            this.duration = "0500";
-            this.curveType = "02";
-            this.waveType = "3";
-            this.effect = "00";
-            this.fxParam  = "1500";
-            this.fxSteps = "1500";
+            this.startFreq = 2000;
+            this.endFreq = 2500;
+            this.duration = 500;
+            this.curveType = 2;
+            this.waveType = 3;
+            this.effect = 0;
+            this.fxParam  = 1500;
+            this.fxSteps = 1500;
         }
 
         playSound(){
-            new SoundExpression(this.waveType + "1023" + this.startFreq + this.duration + this.curveType + "440"+ this.endFreq + "08881023" + "0032" + this.effect + "00000024"+"00000000000000000000" + this.fxParam + this.fxSteps).play();
+            new SoundExpression(this.waveType + "1023" + pad4(this.startFreq) + pad4(this.duration) + pad2(this.curveType) + "440" + pad4(this.endFreq) + "08881023" + "0032" + pad2(this.effect) + "00000024" + "00000000000000000000" + pad4(this.fxParam) + pad4(this.fxSteps)).play();
         }
     }
 
-    // TODO defaults dont work?
+    /**
+     * Padding Funciton from number to 4 byte string
+     */
+    function pad4(num : number){
+        let str = num.toString();
+        while(str.length < 4){str = "0" + str;}
+        return str;
+    }
+
+    /**
+     * Padding Funciton from number to 2 byte string
+     */
+    function pad2(num : number){
+        let str = num.toString();
+        while(str.length < 2){str = "0" + str;}
+        return str;
+    }
 
     /**
      * create Sound Generic Block
@@ -212,20 +227,12 @@ namespace sound{
     //% effect.min=0 effect.max=3 effect.defl=0
     export function createSound(freq1 : number = 2000, freq2 : number = 2500, duration : number = 200, curveType : CurveType = CurveType.Curve, waveType : WaveType = WaveType.SquareWave, effect : EffectType = EffectType.None) : Sound{
         let sound = new Sound();
-        let f1 = freq1.toString();
-        let f2 = freq2.toString();
-        let dur = duration.toString();
-        while(f1.length < 4){f1 = "0" + f1;}
-        while(f2.length < 4){f2 = "0" + f2;}
-        while(dur.length < 4){dur = "0" + dur;}
-
-        sound.startFreq = f1;
-        sound.endFreq = f2;
-        sound.duration = dur;
-        sound.curveType = "0" + curveType;
+        sound.startFreq = freq1;
+        sound.endFreq = freq2;
+        sound.duration = duration;
+        sound.curveType = curveType;
         sound.waveType = waveType;
-        sound.effect = "0" + effect;
-
+        sound.effect = effect;
         return sound;
     }
 
@@ -259,8 +266,6 @@ namespace sound{
     export function setWave(sound : Sound, waveType : WaveType){
         sound.waveType = waveType;
     }
-
-    //TODO known issue curve type isnt working (WIP)
 
     /**
      * set curve type
