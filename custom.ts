@@ -277,6 +277,39 @@ namespace sound{
     export function setCurve(sound : Sound, curveType : CurveType){
         sound.curveType = curveType;
     }
+
+    /**
+     * set start frequency
+     * @param sound instance of Sound to change
+     * @param freq1 new start frequency for the speicified sound
+     */
+    //% blockId=music_set_start_freq
+    //% block="set %sound start frequency to %freq1"
+    export function setStartFreq(sound : Sound, freq1 : number){
+        sound.startFreq = freq1;
+    }
+
+    /**
+     * set end frequency
+     * @param sound instance of Sound to change
+     * @param freq1 new start frequency for the speicified sound
+     */
+    //% blockId=music_set_end_freq
+    //% block="set %sound end frequency to %freq2"
+    export function setEndFreq(sound : Sound, freq2 : number){
+        sound.endFreq = freq2;
+    }
+
+    /**
+     * set duration
+     * @param sound instance of Sound to change
+     * @param dur duration of the note
+     */
+    //% blockId=music_set_duration
+    //% block="set %sound duration to %dur"
+    export function setDuration(sound : Sound, dur : number){
+        sound.duration = dur;
+    }
 }
 
 

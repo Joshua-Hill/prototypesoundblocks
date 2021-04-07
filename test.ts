@@ -31,6 +31,13 @@ function Cricket () {
         sound.croakSound(10, 40, 20)
     }
 }
+input.onButtonPressed(Button.B, function () {
+    let sound2 = sound.createSound(2500, 2800, 200)
+    sound.setCurve(sound2, CurveType.ExpRising)
+    sound.setWave(sound2, WaveType.SineWave)
+    sound.playSound(sound2)
+})
+
 input.onButtonPressed(Button.A, function () {
     Squeakmouse()
     basic.pause(1000)
