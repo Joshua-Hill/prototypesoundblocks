@@ -285,7 +285,7 @@ namespace sound{
      */
     //% blockId=music_set_start_freq
     //% block="set %sound start frequency to %freq1"
-    export function setStartFreq(sound : Sound, freq1 : number){
+    export function setStartFreq(sound : Sound, freq1 : number = 2000){
         sound.startFreq = freq1;
     }
 
@@ -296,7 +296,7 @@ namespace sound{
      */
     //% blockId=music_set_end_freq
     //% block="set %sound end frequency to %freq2"
-    export function setEndFreq(sound : Sound, freq2 : number){
+    export function setEndFreq(sound : Sound, freq2 : number = 2500){
         sound.endFreq = freq2;
     }
 
@@ -307,7 +307,7 @@ namespace sound{
      */
     //% blockId=music_set_duration
     //% block="set %sound duration to %dur"
-    export function setDuration(sound : Sound, dur : number){
+    export function setDuration(sound : Sound, dur : number = 200){
         sound.duration = dur;
     }
 }
