@@ -61,6 +61,7 @@ namespace sound{
      * Squeak - slide between two frequencies over a variable period of time. 
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
+    //% weight=100
     //% blockId=music_squeak
     //% block="squeak from $start_tone hz to $end_tone hz taking $duration milliseconds "
     //% start_tone.min=1000 start_tone.max=9000 start_tone.defl=1000
@@ -82,6 +83,7 @@ namespace sound{
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
     //% blockId=music_warble
+    //% weight=99
     //% block="warble between $freq_1 hz and $freq_2 hz with gap $duration milliseconds, repeat $numRepeats"
     //% freq_1.min=10 freq_1.max=9000 freq_1.defl=2000
     //% freq_2.min=10 freq_2.max=9000 freq_2.defl=2500
@@ -104,6 +106,7 @@ namespace sound{
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
     //% blockId=music_chirp
+    //% weight=98
     //% block="chirp from $freq_1 hz to $freq_2 hz taking $duration milliseconds"
     //% freq_1.min=10 freq_1.max=9000 freq_1.defl=600
     //% freq_2.min=10 freq_2.max=9000 freq_2.defl=1000
@@ -125,6 +128,7 @@ namespace sound{
      * Croak - low pitched croak sound
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
+    //% weight=97    
     //% blockId=music_croak
     //% block="croak from $freq_1 hz to $freq_2 hz taking $duration milliseconds"
     //% freq_1.min=1 freq_1.max=1000 freq_1.defl=5
@@ -143,10 +147,13 @@ namespace sound{
         new SoundExpression("31023" + f1 + dur + "02" + "440"+ f2 + "08881023" + "0128" + "00000000240000000000000000000000000000").play();
     }
     
+    //Do we want click as V2 too or make with V1?
+
     /**
      * Click - short click sound
      * @param note pitch of the tone to play in Hertz (Hz), eg: Note.C
      */
+    //% weight=96
     //% blockId=music_click
     //% block="click at $freq_1 hz"
     //% freq_1.min=1 freq_1.max=50 freq_1.defl=10
@@ -215,13 +222,14 @@ namespace sound{
      * @param waveType Type of wave to play the sound on, eg: 3
      * @param effect Effect to put on the sound, eg: 3
      */
+    //% weight=68
     //% blockId=music_soundGeneric
     //% expandableArgumentMode="enabled"
     //% inlineInputMode=inline
     //% block="Create sound, start  $freq1 (Hz), end  $freq2 (Hz), duration $duration (ms)||, curve type $curveType|, wave type $waveType|, effect $effect"
     //% freq1.min=6 freq1.max=9000 freq1.defl=1000
-    //% duration.min=10 duration.max=9000 duration.defl=200
     //% freq2.min=6 freq2.max=9000 freq2.defl=1200
+    //% duration.min=10 duration.max=9000 duration.defl=200
     //% curveType.min=0 curveType.max=6 curveType.defl=2
     //% waveType.min=0 waveType.max=4 waveType.defl=3
     //% effect.min=0 effect.max=3 effect.defl=0
@@ -237,9 +245,30 @@ namespace sound{
     }
 
     /**
+     * create Sound Generic Block Short
+     * @param freq1 Start Frequency in Hertz (Hz), eg: 2000
+     * @param duration Duration of sound (ms), eg: 500
+     * @param freq2 End Frequency in Hertz (Hz), eg: 2000
+     */
+    //% weight=70
+    //% blockId=music_soundGenericShort
+    //% block="Play sound, start  $freq1 (Hz), end  $freq2 (Hz), duration $duration (ms)"
+    //% freq1.min=6 freq1.max=9000 freq1.defl=1000
+    //% freq2.min=6 freq2.max=9000 freq2.defl=1200
+    //% duration.min=10 duration.max=9000 duration.defl=200
+    export function createSoundShort(freq1 : number = 2000, freq2 : number = 2500, duration : number = 200){
+        let sound = new Sound();
+        sound.startFreq = freq1;
+        sound.endFreq = freq2;
+        sound.duration = duration;
+        sound.playSound();
+    }
+
+    /**
      * play Sound Block
      * @param sound instance of Sound to play
      */
+    //% weight=69
     //% blockId=music_playSound
     //% block="play sound %sound"
     export function playSound(sound : Sound){
@@ -314,5 +343,3 @@ namespace sound{
         sound.duration = dur;
     }
 }
-
-
